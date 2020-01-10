@@ -1,0 +1,20 @@
+The first 3 point are generic K8S work. Their target is to build a redis service on Kubernetes. In this version we are simply looking for a running service, no direct HA requirements. 
+
+1. Write and build a redis Docker image. It should be possible to connect a running container based on this image using redis-cli, and possible to get/set key:value pairs. It should also be configurable using environment variables.
+
+2. Deploy a Kubernetes cluster (could be in a simple VM)
+
+3. Write and deploy a simple service (single deployment with a single pod) called redis based on the Docker image created in step 1. Data must be persistent between restarts of the service using an attached volume (e.g. using persistent volumes of type HostPath).
+4. In our context, we often work with distributed systems requiring a master component to function. Most services offer capabilities for master re-election if the current one fails, but provide little or no tooling for the initial setup. Various instances created via a single Kubernetes deployment are all identical, they are not provided with a strong identity (no concept of "first" or "third" instance in the deployment). An additional solution is required to decide which instance should be the initial master. Think of a solution to automatically designate one pod of a multiple pod setup as initial master, with every pod agreeing on the master. Demonstrate this solution with a multi pod deployment in your kubernetes setup (these pods can be multiple redis or anything else like a very simple webapp reporting the ip of the master node, the core of the task is on the master election).
+
+We will ask you to demonstrate these results during the technical interview.
+Beyond these, we will discuss the following topics during the interview, we do not expect you to present anything but we recommend you prepare some notes.
+
+1. Kubernetes deployments: In the team we use Pivotal Container Services to deploy managed Kubernetes, what is your opinion on the topic? What would your approach to on-premise managed Kubernetes be?
+
+2. Given that we have a single NSX-T deployment, we can either deploy one single PKS control plane for multiple customers (using the approach from https://docs.pivotal.io/runtimes/pks/1-2/nsxt-multi-t0.html) or deploy multiple entire PKS (using the approach https://docs.pivotal.io/runtimes/pks/1-2/nsxt-multi-pks.html) with each PKS dedicated to one customer. What would be your recommendation, and why?
+
+
+
+
+

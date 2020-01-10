@@ -1,0 +1,14 @@
+Deploy redis stateful set
+kubectl apply -f redis-sts.yaml
+
+Deploy redis service
+kubectl apply -f redis-svc.yaml
+
+Deploy redis cluster
+kubectl exec -it redis-cluster-0 -- redis-cli --cluster create --cluster-replicas 1 $(kubectl get pods -l app=redis-cluster -o jsonpath='{range.items[*]}{.status.podIP}:6379 ')
+
+Check redis cluster info
+kubectl exec -it redis-cluster-0 -- redis-cli cluster info
+
+Check role of each redis cluster
+for x in $(seq 0 5); do echo "redis-cluster-$x"; kubectl exec redis-cluster-$x -- redis-cli role; echo; done

@@ -1,0 +1,16 @@
+#Build redis image
+docker build -t redis .
+
+#Start redis server
+docker run redis
+
+fire redis-cli and then run below
+SET key1 key1
+SET key2 key2
+SET key3 key3
+
+GET key1
+GET key2
+GET key3
+
+https://stackoverflow.com/questions/33004557/loading-initial-data-into-a-redis-docker-container

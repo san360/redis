@@ -1,0 +1,27 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: redis
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      volumes:
+        - name: redis-vol
+          hostPath: 
+            path: /tmp/redis
+      containers:
+      - name: redis
+        image: redis:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 6379
+        - containerPort: 16379
+        volumeMounts:
+        - name: redis-vol
+          readOnly: false
+          mountPath: "/data"
